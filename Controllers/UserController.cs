@@ -5,10 +5,10 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
-    public class HomeController : Controller
+    public class UserController : Controller
     {
         UserContext db;
-        public HomeController(UserContext context)
+        public UserController(UserContext context)
         {
             db = context;
         }
