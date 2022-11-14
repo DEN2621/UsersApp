@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace WebApplication1.Models
+namespace UsersDB.Models
 {
     public class UserContext : DbContext
     {

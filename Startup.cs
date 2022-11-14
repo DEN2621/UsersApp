@@ -10,9 +10,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using WebApplication1.Models;
+using UsersDB.Models;
 
-namespace WebApplication1
+namespace UsersDB
 {
     public class Startup
     {

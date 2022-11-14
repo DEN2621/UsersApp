@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using WebApplication1.Models;
+using UsersDB.Models;
 
-namespace WebApplication1.Controllers
+namespace UsersDB.Controllers
 {
     public class UserController : Controller
     {
