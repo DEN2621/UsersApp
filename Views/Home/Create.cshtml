@@ -1,0 +1,13 @@
+﻿@model WebApplication1.Models.User
+@{
+    ViewData["Title"] = "Создание пользователя";
+}
+ 
+<h1>@ViewData["Title"]</h1>
+<form method="POST">
+    <div><label>Имя</label><br /><input asp-for="Name" /></div>
+    <div><label>Возраст</label><br /><input asp-for="Age" /></div>
+    <div><label>Город</label><br /><input asp-for="City" /></div>
+    <div><label>Адрес электронной почты</label><br /><input asp-for="Email" /></div>
+    <input type="submit" value="Создать" />
+</form>

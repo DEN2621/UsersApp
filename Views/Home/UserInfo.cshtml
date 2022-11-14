@@ -1,0 +1,27 @@
+﻿@model WebApplication1.Models.User
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<h1>@ViewData["Title"]</h1>
+<form method="POST">
+    <table>
+        <tr>
+            <td>Id</td>
+            <td>@Model.Id</td>
+        </tr>
+        <tr>
+            <td>Возраст</td>
+            <td>@Model.Age</td>
+        </tr>
+        <tr>
+            <td>Город</td>
+            <td>@Model.City</td>
+        </tr>
+        <tr>
+            <td>Адрес электронной почты</td>
+            <td>@Model.Email</td>
+        </tr>
+    </table>
+    <input type="submit" value="Вернуться к списку" />
+</form>
