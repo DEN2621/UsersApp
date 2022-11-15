@@ -1,4 +1,6 @@
-namespace UsersDB.Models
+using System;
+
+namespace UsersWeb.Models
 {
     public class ErrorViewModel
     {
