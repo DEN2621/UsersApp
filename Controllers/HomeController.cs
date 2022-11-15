@@ -5,10 +5,10 @@ using UsersDB.Models;
 
 namespace UsersDB.Controllers
 {
-    public class UserController : Controller
+    public class HomeController : Controller
     {
         UserContext db;
-        public UserController(UserContext context)
+        public HomeController(UserContext context)
         {
             db = context;
         }
