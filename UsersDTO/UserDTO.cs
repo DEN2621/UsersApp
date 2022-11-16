@@ -2,7 +2,7 @@
 
 namespace UsersDTO
 {
-    public class UsersDTO
+    public class UserDTO
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
