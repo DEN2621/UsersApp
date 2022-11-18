@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsersDTO", "UsersDTO\UsersD
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsersWeb", "UsersWeb\UsersWeb.csproj", "{10754FA9-624B-46F2-A870-023C8C90EE6A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersWebTests", "UsersWebTests\UsersWebTests.csproj", "{50023F7E-295D-40F4-8F9A-731BBD7EA506}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{10754FA9-624B-46F2-A870-023C8C90EE6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10754FA9-624B-46F2-A870-023C8C90EE6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10754FA9-624B-46F2-A870-023C8C90EE6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50023F7E-295D-40F4-8F9A-731BBD7EA506}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50023F7E-295D-40F4-8F9A-731BBD7EA506}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50023F7E-295D-40F4-8F9A-731BBD7EA506}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50023F7E-295D-40F4-8F9A-731BBD7EA506}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

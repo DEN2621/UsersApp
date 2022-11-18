@@ -12,18 +12,18 @@ namespace UsersAPI.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly UserContext _context;
+        private readonly UserContext context;
 
         public UsersController(UserContext context)
         {
-            _context = context;
+            this.context = context;
         }
 
         // GET: api/Users
         [HttpGet]
         public IEnumerable<UserDTO> GetUsers()
         {
-            return _context.Users.Select(user => new UserDTO()
+            return context.Users.Select(user => new UserDTO()
             {
                 Id = user.Id,
                 Name = user.Name,
@@ -37,7 +37,7 @@ namespace UsersAPI.Controllers
         [HttpGet("{id}")]
         public UserDTO GetUser(int id)
         {
-            User user = _context.Users.Find(id);
+            User user = context.Users.Find(id);
 
             if (user == null)
             {
@@ -64,11 +64,11 @@ namespace UsersAPI.Controllers
                 throw new Exception();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            context.Entry(user).State = EntityState.Modified;
 
             try
             {
-                _context.SaveChanges();
+                context.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -90,8 +90,8 @@ namespace UsersAPI.Controllers
         [HttpPost]
         public UserDTO PostUser(User user)
         {
-            _context.Users.Add(user);
-            _context.SaveChanges();
+            context.Users.Add(user);
+            context.SaveChanges();
 
             return GetUser(user.Id);
         }
@@ -100,19 +100,19 @@ namespace UsersAPI.Controllers
         [HttpDelete("{id}")]
         public void DeleteUser(int id)
         {
-            User user = _context.Users.Find(id);
+            User user = context.Users.Find(id);
             if (user == null)
             {
                 throw new Exception();
             }
 
-            _context.Users.Remove(user);
-            _context.SaveChanges();
+            context.Users.Remove(user);
+            context.SaveChanges();
         }
 
         private bool UserExists(int id)
         {
-            return _context.Users.Any(e => e.Id == id);
+            return context.Users.Any(e => e.Id == id);
         }
     }
 }

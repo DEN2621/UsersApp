@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Security.Policy;
+using UsersWeb.Services;
 
 namespace UsersWeb
 {
@@ -10,14 +12,16 @@ namespace UsersWeb
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            Configuration = new UsersConfiguration(configuration);
         }
 
-        public IConfiguration Configuration { get; }
+        public IUsersConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton(Configuration);
+            services.AddTransient(_ => new UsersService(Configuration, url => new MyWebRequest(url)));
             services.AddControllersWithViews();
         }
 

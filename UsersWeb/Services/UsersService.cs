@@ -1,66 +1,55 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using System.Text;
-using System;
+using System.Net.Http;
+using System.Net.Mime;
 using UsersDTO;
-using System.Collections.Generic;
 
 namespace UsersWeb.Services
 {
-    public class UsersService : Controller
+    public class UsersService
     {
-        public static ActionResult MakeRequest(int id = 0, IFormCollection collection = null, string page = "", string method = "GET")
+        private readonly IUsersConfiguration configuration;
+        readonly Func<string, IWebRequest> getWebRequest;
+        public UsersService(IUsersConfiguration configuration, Func<string, IWebRequest> getWebRequest)
         {
-            try
+            this.configuration = configuration;
+            this.getWebRequest = getWebRequest;
+        }
+        private string MakeRequest(UserDTO user = null, string page = "", string method = WebRequestMethods.Http.Get)
+        {
+            IWebRequest request = getWebRequest($"{configuration.APIBaseURL}api/Users/{page}");
+            request.Method = method;
+            request.ContentType = MediaTypeNames.Application.Json;
+            if (user != null)
             {
-                WebRequest request = WebRequest.Create($"https://localhost:44325/api/Users/{page}");
-                request.Method = method;
-                switch (request.Method)
-                {
-                    case "GET":
-                        using (WebResponse response = request.GetResponse())
-                        {
-                            using Stream stream = response.GetResponseStream();
-                            using StreamReader reader = new(stream);
-                            return View(id == 0
-                                ? JsonConvert.DeserializeObject<IEnumerable<UserDTO>>(reader.ReadToEnd())
-                                : JsonConvert.DeserializeObject<UserDTO>(reader.ReadToEnd()));
-                        }
-                    case "DELETE":
-                        break;
-                    default:
-                        UserDTO user = new()
-                        {
-                            Name = collection["Name"],
-                            Age = Convert.ToInt32(collection["Age"]),
-                            City = collection["City"],
-                            Email = collection["Email"]
-                        };
-                        if (request.Method == "PUT")
-                        {
-                            user.Id = id;
-                        }
-                        byte[] bytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(user));
-                        request.ContentLength = bytes.Length;
-                        request.ContentType = "application/json";
-                        using (Stream stream = request.GetRequestStream())
-                        {
-                            stream.Write(bytes);
-                        }
-                        break;
-                }
-                using (WebResponse response = request.GetResponse())
-                {
-                    return MakeRequest();
-                }
+                using Stream stream = request.GetRequestStream();
+                using StreamWriter writer = new(stream);
+                writer.Write(JsonConvert.SerializeObject(user));
             }
-            catch
-            {
-                return View();
-            }
+            return request.GetResponse();
+        }
+        public IEnumerable<UserDTO> Index()
+        {
+            return JsonConvert.DeserializeObject<IEnumerable<UserDTO>>(MakeRequest());
+        }
+        public void Create(UserDTO user)
+        {
+            MakeRequest(user, method: WebRequestMethods.Http.Post);
+        }
+        public UserDTO Details(int id)
+        {
+            return JsonConvert.DeserializeObject<UserDTO>(MakeRequest(page: $"{id}"));
+        }
+        public void Edit(UserDTO user)
+        {
+            MakeRequest(user, $"{user.Id}", WebRequestMethods.Http.Put);
+        }
+        public void Delete(int id)
+        {
+            MakeRequest(page: $"{id}", method: HttpMethod.Delete.ToString());
         }
     }
 }
