@@ -61,6 +61,9 @@
     </Content>
     <Content Include="src\components\Users.vue" />
     <Content Include="src\main.js" />
+    <Content Include="src\router.js">
+      <SubType>Code</SubType>
+    </Content>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
   <ProjectExtensions>
