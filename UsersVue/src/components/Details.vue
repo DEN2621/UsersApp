@@ -1,5 +1,8 @@
-<template>
-    <router-view>
+﻿<template>
+    <div v-if="isloadprocess">
+        <h1>Loading...</h1>
+    </div>
+    <div v-if="!isloadprocess">
         <h1>Details</h1>
         <div>
             <h4>User</h4>
@@ -24,10 +27,10 @@
             </dl>
         </div>
         <div>
-            <router-link v-if="typeof user.id !== 'undefined'" :to="{ name:'Edit', params: { id: user.id } }">Edit</router-link> |
+            <router-link :to="{ name:'Edit', params: { id: user.id } }">Edit</router-link> |
             <router-link :to="{ name:'Users' }">Back to List</router-link>
         </div>
-    </router-view>
+    </div>
 </template>
 
 <script>
@@ -36,11 +39,16 @@
         name: 'Details',
         data() {
             return {
-                user: [],
+                user: {},
+                isloadprocess: true
             };
         },
-        mounted() {
-            axios.get("http://localhost:14558/api/Users/" + this.$route.params.id).then(response => this.user = response.data);
+        created() {
+            this.isloadprocess = true;
+            axios.get("http://localhost:14558/api/Users/" + this.$route.params.id).then(response => {
+                this.user = response.data;
+                this.isloadprocess = false;
+            });
         }
     }
 </script>

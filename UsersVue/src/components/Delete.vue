@@ -1,5 +1,8 @@
 <template>
-    <router-view>
+    <div v-if="isloadprocess">
+        <h1>Loading...</h1>
+    </div>
+    <div v-if="!isloadprocess">
         <h1>Delete</h1>
         <h3>Are you sure you want to delete this?</h3>
         <div>
@@ -24,10 +27,10 @@
                 </dd>
             </dl>
             <input type="hidden" v-model="user.id" />
-            <input type="button" value="Delete" @click="onclick" class="btn btn-danger" /> |
+            <input type="button" v-model="buttonname" @click="onclick" :disabled="validate()" class="btn btn-danger" /> |
             <router-link :to="{ name:'Users' }">Back to List</router-link>
         </div>
-    </router-view>
+    </div>
 </template>
 
 <script>
@@ -36,15 +39,26 @@
         name: 'Delete',
         data() {
             return {
-                user: [],
+                user: {},
+                buttonname: "Delete",
+                isloadprocess: true,
+                isdeleteptocess: false
             };
         },
         created() {
-            axios.get("http://localhost:14558/api/Users/" + this.$route.params.id).then(response => this.user = response.data);
+            axios.get("http://localhost:14558/api/Users/" + this.$route.params.id).then(response => {
+                this.user = response.data;
+                this.isloadprocess = false;
+            });
         },
         methods: {
             onclick() {
+                this.isdeleteprocess = true;
+                this.buttonname = "Deleting...";
                 axios.delete("http://localhost:14558/api/Users/" + this.$route.params.id).then(() => this.$router.push("/")).catch(console.error());
+            },
+            validate() {
+                return this.isdeleteprocess;
             }
         }
     }

@@ -1,5 +1,8 @@
 ﻿<template>
-    <router-view>
+    <div v-if="isloadprocess">
+        <h1>Loading...</h1>
+    </div>
+    <div v-if="!isloadprocess">
         <h1>Users</h1>
         <p>
             <router-link to="Create">Create New</router-link>
@@ -36,7 +39,7 @@
                 </tr>
             </tbody>
         </table>
-    </router-view>
+    </div>
 </template>
 
 <script>
@@ -46,11 +49,14 @@ export default {
         data() {
             return {
                 users: null,
-                edituser: null
+                isloadprocess: true
             };
         },
         created() {
-            axios.get("http://localhost:14558/api/Users/").then(response => this.users = response.data);
+            axios.get("http://localhost:14558/api/Users/").then(response => {
+                this.users = response.data;
+                this.isloadprocess = false;
+            });
         }
 }
 </script>
