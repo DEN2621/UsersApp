@@ -21,7 +21,7 @@ namespace UsersWebTests
             UsersService service = UsersServiceTestsHelpers.GetUsersService(new Mock<IUsersConfiguration>(MockBehavior.Strict),
                                               new Mock<IWebRequest>(MockBehavior.Strict),
                                               @"[{""id"": 18,""name"": ""qwe"",""age"": 123,""city"": ""asd"",""email"": ""qwe""}]");
-            IEnumerable<UserDTO> users = service.Index();
+            IEnumerable<UserDTO> users = service.UsersList();
             Assert.Multiple(() =>
             {
                 Assert.That(users.Count(), Is.EqualTo(1));

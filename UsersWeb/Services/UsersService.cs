@@ -31,7 +31,7 @@ namespace UsersWeb.Services
             }
             return request.GetResponse();
         }
-        public IEnumerable<UserDTO> Index()
+        public IEnumerable<UserDTO> Users()
         {
             return JsonConvert.DeserializeObject<IEnumerable<UserDTO>>(MakeRequest());
         }

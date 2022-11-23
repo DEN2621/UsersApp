@@ -13,9 +13,9 @@ namespace UsersWeb.Controllers
         }
 
         // GET: UsersController
-        public ActionResult Index()
+        public ActionResult Users()
         {
-            return View(service.Index());
+            return View(service.Users());
         }
 
         // GET: UsersController/Details/5
@@ -38,7 +38,7 @@ namespace UsersWeb.Controllers
             try
             {
                 service.Create(user);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Users));
             }
             catch
             {
@@ -60,7 +60,7 @@ namespace UsersWeb.Controllers
             try
             {
                 service.Edit(user);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Users));
             }
             catch
             {
@@ -82,7 +82,7 @@ namespace UsersWeb.Controllers
             try
             {
                 service.Delete(id);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Users));
             }
             catch
             {
