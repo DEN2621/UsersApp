@@ -43,8 +43,8 @@
 </template>
 
 <script>
-import axios from 'axios';
-export default {
+    import axios from 'axios';
+    export default {
         name: 'Users',
         data() {
             return {
@@ -58,5 +58,5 @@ export default {
                 this.isloadprocess = false;
             });
         }
-}
+    }
 </script>
